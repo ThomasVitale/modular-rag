@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: modular-rag
+  ai:
+    mcp:
+      client:
+        stdio:
+          connections:
+            tavily-search:
+              command: npx
+              args:
+                - "-y"
+                - "tavily-mcp@0.2.0"
+              env:
+                TAVILY_API_KEY: ${TAVILY_SEARCH_API_KEY}
+    ollama:
+      init:
+        pull-model-strategy: when_missing
+      chat:
+        options:
+          model: qwen2.5
+          num-ctx: 4096
+      embedding:
+        options:
+          model: nomic-embed-text
+    vectorstore:
+      pgvector:
+        dimensions: 768
+        index-type: hnsw
+  http:
+    client:
+      factory: jdk
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.ai.rag: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+vaadin:
+  launch-browser: true
+
+arconia:
+  dev:
+    services:
+      postgresql:
+        image-name: pgvector/pgvector:pg17

@@ -1,0 +1,68 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.vaadin' version '24.7.4'
+}
+
+group = 'com.thomasvitale'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(24)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('arconiaVersion', "0.11.0")
+	set('springAiVersion', "1.0.0-RC1")
+	set('vaadinVersion', "24.7.4")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'com.vaadin:vaadin-spring-boot-starter'
+	implementation 'in.virit:viritin:2.14.4'
+
+	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+	implementation "org.springframework.ai:spring-ai-starter-mcp-client"
+	implementation 'org.springframework.ai:spring-ai-markdown-document-reader'
+	implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
+	implementation 'org.springframework.ai:spring-ai-tika-document-reader'
+	implementation 'org.springframework.ai:spring-ai-rag'
+
+	implementation 'io.arconia:arconia-opentelemetry-spring-boot-starter'
+
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-ollama'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-lgtm'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-postgresql'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "io.arconia:arconia-bom:${arconiaVersion}"
+		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
