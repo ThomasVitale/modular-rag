@@ -20,7 +20,7 @@ repositories {
 
 ext {
 	set('arconiaVersion', "0.11.0")
-	set('springAiVersion', "1.0.0-RC1")
+	set('springAiVersion', "1.0.0")
 	set('vaadinVersion', "24.7.4")
 }
 
