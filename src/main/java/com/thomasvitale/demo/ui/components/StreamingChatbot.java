@@ -6,12 +6,12 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.vaadin.firitin.components.messagelist.MarkdownMessage;
 
-public class Chatbot extends VerticalLayout {
+public class StreamingChatbot extends VerticalLayout {
 
     private static final String USER_LABEL = "You";
     private static final String ASSISTANT_LABEL = "AI";
 
-    public Chatbot(AiService aiService) {
+    public StreamingChatbot(AiService aiService) {
         setSizeFull();
 
         var chatWindow = new VerticalLayout();
@@ -23,9 +23,10 @@ public class Chatbot extends VerticalLayout {
             chatWindow.add(new MarkdownMessage(userMessage, USER_LABEL));
 
             var assistantMessage = new MarkdownMessage(ASSISTANT_LABEL);
-            var result = aiService.chat(userMessage);
-            assistantMessage.setMarkdown(result);
             chatWindow.add(assistantMessage);
+
+            aiService.stream(userMessage)
+                    .subscribe(assistantMessage::appendMarkdownAsync);
         });
 
         addAndExpand(new Scroller(chatWindow));

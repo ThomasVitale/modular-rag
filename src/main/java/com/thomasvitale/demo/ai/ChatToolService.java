@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ChatToolService {
+public class ChatToolService implements AiService {
 
     private final String CONVERSATION_ID = UUID.randomUUID().toString();
 

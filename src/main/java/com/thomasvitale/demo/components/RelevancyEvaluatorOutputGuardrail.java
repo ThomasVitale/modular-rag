@@ -17,12 +17,10 @@ import org.springframework.util.Assert;
  */
 public class RelevancyEvaluatorOutputGuardrail implements CallAdvisor {
 
-    private final ChatClient chatClient;
     private final RelevancyEvaluator relevancyEvaluator;
 
     public RelevancyEvaluatorOutputGuardrail(ChatClient.Builder chatClientBuilder) {
         Assert.notNull(chatClientBuilder, "chatClientBuilder cannot be null");
-        this.chatClient = chatClientBuilder.clone().build();
         this.relevancyEvaluator = new RelevancyEvaluator(chatClientBuilder.clone());
     }
 

@@ -15,7 +15,7 @@ import org.springframework.web.client.RestClient;
 import java.util.UUID;
 
 @Service
-public class ChatRoutingService {
+public class ChatRoutingService implements AiService {
 
     private final String CONVERSATION_ID = UUID.randomUUID().toString();
 

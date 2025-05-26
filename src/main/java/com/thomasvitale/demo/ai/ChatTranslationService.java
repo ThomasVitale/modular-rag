@@ -1,5 +1,6 @@
 package com.thomasvitale.demo.ai;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
@@ -21,6 +22,7 @@ public class ChatTranslationService implements AiService {
 
     public ChatTranslationService(ChatClient.Builder chatClientBuilder, VectorStore vectorStore) {
         this.chatClient = chatClientBuilder
+                .defaultSystem("You are a helpful assistant. Always respond in the same language as the question.")
                 .defaultAdvisors(RetrievalAugmentationAdvisor.builder()
                         .queryTransformers(TranslationQueryTransformer.builder()
                                 .chatClientBuilder(chatClientBuilder.clone())
@@ -39,11 +41,21 @@ public class ChatTranslationService implements AiService {
     }
 
     @Override
-    public Flux<String> chat(String input) {
+    public Flux<String> stream(String input) {
         return chatClient.prompt()
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, CONVERSATION_ID))
                 .user(input)
                 .stream()
+                .content();
+    }
+
+    @Override
+    @Nullable
+    public String chat(String input) {
+        return chatClient.prompt()
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, CONVERSATION_ID))
+                .user(input)
+                .call()
                 .content();
     }
 

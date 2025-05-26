@@ -1,6 +1,7 @@
 package com.thomasvitale.demo.ai;
 
 import com.thomasvitale.demo.components.SearchEngineDocumentRetriever;
+import org.jspecify.annotations.Nullable;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
@@ -38,11 +39,21 @@ public class ChatSearchEngineService implements AiService {
     }
 
     @Override
-    public Flux<String> chat(String input) {
+    public Flux<String> stream(String input) {
         return chatClient.prompt()
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, CONVERSATION_ID))
                 .user(input)
                 .stream()
+                .content();
+    }
+
+    @Override
+    @Nullable
+    public String chat(String input) {
+        return chatClient.prompt()
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, CONVERSATION_ID))
+                .user(input)
+                .call()
                 .content();
     }
 

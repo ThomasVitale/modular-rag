@@ -8,6 +8,7 @@ import org.springframework.ai.reader.markdown.MarkdownDocumentReader;
 import org.springframework.ai.reader.markdown.config.MarkdownDocumentReaderConfig;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -34,15 +35,19 @@ class IngestionPipeline {
 
     @PostConstruct
     void run() {
+        vectorStore.delete(new FilterExpressionBuilder().eq("demo", "true").build());
+
         List<Document> documents = new ArrayList<>();
 
         logger.info("Loading .md files as Documents");
         var markdownReader1 = new MarkdownDocumentReader(file1, MarkdownDocumentReaderConfig.builder()
                 .withAdditionalMetadata("location", "North Pole")
+                .withAdditionalMetadata("demo", "true")
                 .build());
         documents.addAll(markdownReader1.get());
         var markdownReader2 = new MarkdownDocumentReader(file2, MarkdownDocumentReaderConfig.builder()
                 .withAdditionalMetadata("location", "Italy")
+                .withAdditionalMetadata("demo", "true")
                 .build());
         documents.addAll(markdownReader2.get());
 

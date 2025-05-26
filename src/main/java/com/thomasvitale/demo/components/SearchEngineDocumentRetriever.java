@@ -41,7 +41,7 @@ public class SearchEngineDocumentRetriever implements DocumentRetriever {
         Assert.notNull(query, "query cannot be null");
 
         var response = restClient.post()
-                .body(new TavilySearchRequest(query.text(), "basic", maxResults))
+                .body(new TavilySearchRequest(query.text(), "advanced", maxResults))
                 .retrieve()
                 .body(TavilySearchResponse.class);
 
