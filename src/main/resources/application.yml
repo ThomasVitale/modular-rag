@@ -29,8 +29,8 @@ spring:
         index-type: hnsw
     chat:
       observations:
-        include-prompt: true
-        include-completion: true
+        log-prompt: true
+        log-completion: true
   http:
     client:
       factory: jdk

@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.5'
+	id 'org.springframework.boot' version '3.5.3'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.vaadin' version '24.7.4'
+	id 'com.vaadin' version '24.8.3'
 }
 
 group = 'com.thomasvitale'
@@ -19,9 +19,9 @@ repositories {
 }
 
 ext {
-	set('arconiaVersion', "0.12.0")
+	set('arconiaVersion', "0.13.0")
 	set('springAiVersion', "1.0.0")
-	set('vaadinVersion', "24.7.4")
+	set('vaadinVersion', "24.8.3")
 }
 
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
-	implementation 'in.virit:viritin:2.14.4'
+	implementation 'in.virit:viritin:2.16.0'
 
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
@@ -65,4 +65,8 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs.add("-parameters")
 }
