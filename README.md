@@ -9,7 +9,7 @@ Samples showing architectural patterns for Modular RAG using Spring AI and Ollam
 
 ### Ollama
 
-The application consumes models from an [Ollama](https://ollama.ai) inference server. You can either run Ollama locally on your laptop, or rely on the Arconia Dev Services to spin up an Ollama service automatically. If you choose the first option, make sure you have Ollama installed and running on your laptop. Either way, Spring AI will take care of pulling the needed Ollama models when the application starts, if they are not available yet on your machine.
+The application consumes models from an [Ollama](https://ollama.ai) inference server. You can either run Ollama locally on your laptop, or rely on the [Arconia Dev Services](https://arconia.io/docs/arconia/latest/dev-services/) to spin up an Ollama service automatically. If you choose the first option, make sure you have Ollama installed and running on your laptop. Either way, Spring AI will take care of pulling the needed Ollama models when the application starts, if they are not available yet on your machine.
 
 ### Tavily (Optional)
 
