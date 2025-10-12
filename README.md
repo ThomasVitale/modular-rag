@@ -4,7 +4,7 @@ Samples showing architectural patterns for Modular RAG using Spring AI and Ollam
 
 ## Pre-requisites
 
-* Java 24
+* Java 25
 * Podman/Docker
 
 ### Ollama
