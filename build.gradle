@@ -29,7 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
-	implementation 'in.virit:viritin:2.16.0'
+	implementation 'in.virit:viritin:2.20.0'
 
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
