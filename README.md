@@ -41,7 +41,7 @@ Alternatively, you can use the [Arconia CLI](https://arconia.io/docs/arconia-cli
 arconia dev
 ```
 
-Under the hood, the Arconia framework will automatically spin up a [PostgreSQL](https://arconia.io/docs/arconia/latest/dev-services/postgresql/) database and a [Grafana LGTM](https://arconia.io/docs/arconia/latest/dev-services/lgtm/) observability platform using Testcontainers (see [Arconia Dev Services](https://arconia.io/docs/arconia/latest/dev-services/) for more information).
+Under the hood, the Arconia framework will automatically spin up a [PostgreSQL](https://arconia.io/docs/arconia/latest/dev-services/postgresql/) database, a [Grafana LGTM](https://arconia.io/docs/arconia/latest/dev-services/lgtm/) or [Arize Phoenix](https://arconia.io/docs/arconia/latest/dev-services/phoenix/) observability platform, and a [Docling Serve](https://arconia.io/docs/arconia/latest/dev-services/docling/) instance using Testcontainers (see [Arconia Dev Services](https://arconia.io/docs/arconia/latest/dev-services/) for more information).
 
 If instead you want to rely on the [Ollama Dev Service](https://arconia.io/docs/arconia/latest/dev-services/ollama/) via Testcontainers, run the application as follows.
 

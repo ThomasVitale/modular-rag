@@ -18,7 +18,7 @@ spring:
         pull-model-strategy: when_missing
       chat:
         options:
-          model: granite3.3:8b
+          model: granite4:3b
           num-ctx: 4096
       embedding:
         options:
@@ -48,11 +48,21 @@ management:
       exposure:
         include: "*"
 
-vaadin:
-  launch-browser: true
-
 arconia:
   dev:
     services:
+      lgtm:
+        enabled: false
+      phoenix:
+        enabled: true
       postgresql:
-        image-name: pgvector/pgvector:pg17
+        image-name: pgvector/pgvector:pg18
+  observations:
+    generative-ai:
+      openinference:
+        enabled: true
+  otel:
+    logs:
+      enabled: false
+    metrics:
+      enabled: false

@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.7'
+	id 'org.springframework.boot' version '3.5.8'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.vaadin' version '24.9.2'
+	id 'com.vaadin' version '24.9.6'
 }
 
 group = 'com.thomasvitale'
@@ -19,9 +19,9 @@ repositories {
 }
 
 ext {
-	set('arconiaVersion', "0.18.1")
+	set('arconiaVersion', "0.19.0")
 	set('springAiVersion', "1.1.0")
-	set('vaadinVersion', "24.9.2")
+	set('vaadinVersion', "24.9.6")
 }
 
 dependencies {
@@ -35,11 +35,11 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
 	implementation "org.springframework.ai:spring-ai-starter-mcp-client"
 	implementation 'org.springframework.ai:spring-ai-markdown-document-reader'
-	implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
-	implementation 'org.springframework.ai:spring-ai-tika-document-reader'
 	implementation 'org.springframework.ai:spring-ai-rag'
 
+	implementation 'io.arconia:arconia-docling-spring-boot-starter'
 	implementation 'io.arconia:arconia-opentelemetry-spring-boot-starter'
+    implementation 'io.arconia:arconia-openinference-semantic-conventions'
 
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
@@ -47,8 +47,10 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-ollama'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-docling'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-lgtm'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-ollama'
+    testAndDevelopmentOnly 'io.arconia:arconia-dev-services-phoenix'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

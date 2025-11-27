@@ -1,11 +1,10 @@
 package com.thomasvitale.demo.data;
 
+import ai.docling.api.serve.DoclingServeApi;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.reader.markdown.MarkdownDocumentReader;
-import org.springframework.ai.reader.markdown.config.MarkdownDocumentReaderConfig;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
@@ -15,21 +14,25 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
-class IngestionPipeline {
+class DoclingIngestionPipeline {
 
-    private static final Logger logger = LoggerFactory.getLogger(IngestionPipeline.class);
+    private static final Logger logger = LoggerFactory.getLogger(DoclingIngestionPipeline.class);
+
+    private final DoclingServeApi doclingServeApi;
 
     private final VectorStore vectorStore;
 
     @Value("classpath:documents/story1.md")
     Resource file1;
 
-    @Value("classpath:documents/story2.md")
+    @Value("classpath:documents/story2.pdf")
     Resource file2;
 
-    IngestionPipeline(VectorStore vectorStore) {
+    DoclingIngestionPipeline(DoclingServeApi doclingServeApi, VectorStore vectorStore) {
+        this.doclingServeApi = doclingServeApi;
         this.vectorStore = vectorStore;
     }
 
@@ -39,17 +42,20 @@ class IngestionPipeline {
 
         List<Document> documents = new ArrayList<>();
 
-        logger.info("Loading .md files as Documents");
-        var markdownReader1 = new MarkdownDocumentReader(file1, MarkdownDocumentReaderConfig.builder()
-                .withAdditionalMetadata("location", "North Pole")
-                .withAdditionalMetadata("demo", "true")
-                .build());
-        documents.addAll(markdownReader1.get());
-        var markdownReader2 = new MarkdownDocumentReader(file2, MarkdownDocumentReaderConfig.builder()
-                .withAdditionalMetadata("location", "Italy")
-                .withAdditionalMetadata("demo", "true")
-                .build());
-        documents.addAll(markdownReader2.get());
+        logger.info("Loading files as Documents with Docling");
+        var doclingReader1 = DoclingDocumentReader.builder()
+            .file(file1)
+            .doclingServeApi(doclingServeApi)
+            .metadata(Map.of("location", "North Pole"))
+            .build();
+        documents.addAll(doclingReader1.get());
+
+        var doclingReader2 = DoclingDocumentReader.builder()
+            .file(file2)
+            .doclingServeApi(doclingServeApi)
+            .metadata(Map.of("location", "Italy"))
+            .build();
+        documents.addAll(doclingReader2.get());
 
         logger.info("Splitting Documents into chunks");
         var tokenTextSplitter = TokenTextSplitter.builder().build();

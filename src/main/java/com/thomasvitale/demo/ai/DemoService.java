@@ -16,8 +16,7 @@ public class DemoService implements AiService {
     private final ChatClient chatClient;
 
     public DemoService(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder
-                .build();
+        this.chatClient = chatClientBuilder.build();
     }
 
     @Override
