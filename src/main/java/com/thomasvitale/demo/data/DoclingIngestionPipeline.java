@@ -1,11 +1,11 @@
 package com.thomasvitale.demo.data;
 
-import ai.docling.api.serve.DoclingServeApi;
+import ai.docling.serve.api.DoclingServeApi;
+import io.arconia.ai.document.docling.DoclingDocumentReader;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,24 +42,28 @@ class DoclingIngestionPipeline {
 
         List<Document> documents = new ArrayList<>();
 
-        logger.info("Loading files as Documents with Docling");
-        var doclingReader1 = DoclingDocumentReader.builder()
-            .file(file1)
-            .doclingServeApi(doclingServeApi)
-            .metadata(Map.of("location", "North Pole"))
-            .build();
-        documents.addAll(doclingReader1.get());
+        logger.info("Parsing and chunking files as Documents with Docling");
+        var documents1 = DoclingDocumentReader.builder()
+                .doclingServeApi(doclingServeApi)
+                .files(file1)
+                .metadata(Map.of(
+                        "demo", "true",
+                        "location", "North Pole"
+                ))
+                .build()
+                .get();
+        documents.addAll(documents1);
 
-        var doclingReader2 = DoclingDocumentReader.builder()
-            .file(file2)
-            .doclingServeApi(doclingServeApi)
-            .metadata(Map.of("location", "Italy"))
-            .build();
-        documents.addAll(doclingReader2.get());
-
-        logger.info("Splitting Documents into chunks");
-        var tokenTextSplitter = TokenTextSplitter.builder().build();
-        documents = tokenTextSplitter.split(documents);
+        var documents2 = DoclingDocumentReader.builder()
+                .doclingServeApi(doclingServeApi)
+                .files(file2)
+                .metadata(Map.of(
+                        "demo", "true",
+                        "location", "Italy"
+                ))
+                .build()
+                .get();
+        documents.addAll(documents2);
 
         logger.info("Creating and storing Embeddings from Documents");
         vectorStore.add(documents);

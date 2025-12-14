@@ -19,7 +19,7 @@ repositories {
 }
 
 ext {
-	set('arconiaVersion', "0.19.0")
+	set('arconiaVersion', "0.20.0")
 	set('springAiVersion', "1.1.0")
 	set('vaadinVersion', "24.9.6")
 }
@@ -37,7 +37,7 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-markdown-document-reader'
 	implementation 'org.springframework.ai:spring-ai-rag'
 
-	implementation 'io.arconia:arconia-docling-spring-boot-starter'
+	implementation 'io.arconia:arconia-ai-docling-document-reader'
 	implementation 'io.arconia:arconia-opentelemetry-spring-boot-starter'
     implementation 'io.arconia:arconia-openinference-semantic-conventions'
 
