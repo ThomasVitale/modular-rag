@@ -19,7 +19,6 @@ spring:
       chat:
         options:
           model: granite4:3b
-          num-ctx: 4096
       embedding:
         options:
           model: granite-embedding:278m
@@ -31,9 +30,6 @@ spring:
       observations:
         log-prompt: true
         log-completion: true
-  http:
-    client:
-      factory: jdk
   threads:
     virtual:
       enabled: true

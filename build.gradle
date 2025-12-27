@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.8'
+	id 'org.springframework.boot' version '4.0.1'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.vaadin' version '24.9.6'
+	id 'com.vaadin' version '25.0.2'
 }
 
 group = 'com.thomasvitale'
@@ -19,33 +19,34 @@ repositories {
 }
 
 ext {
-	set('arconiaVersion', "0.20.0")
-	set('springAiVersion', "1.1.0")
-	set('vaadinVersion', "24.9.6")
+	set('arconiaVersion', "0.21.0")
+	set('springAiVersion', "2.0.0-M1")
+	set('vaadinVersion', "25.0.2")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
-	implementation 'in.virit:viritin:2.20.0'
+	implementation 'in.virit:viritin:3.1.0'
 
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
 	implementation "org.springframework.ai:spring-ai-starter-mcp-client"
-	implementation 'org.springframework.ai:spring-ai-markdown-document-reader'
 	implementation 'org.springframework.ai:spring-ai-rag'
 
 	implementation 'io.arconia:arconia-ai-docling-document-reader'
 	implementation 'io.arconia:arconia-opentelemetry-spring-boot-starter'
     implementation 'io.arconia:arconia-openinference-semantic-conventions'
 
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.flywaydb:flyway-database-postgresql'
+	implementation 'org.springframework.boot:spring-boot-starter-flyway'
+	implementation "org.springframework.boot:spring-boot-starter-restclient"
+    implementation 'org.flywaydb:flyway-database-postgresql'
 
 	runtimeOnly 'org.postgresql:postgresql'
 
+	developmentOnly 'com.vaadin:vaadin-dev'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-docling'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-lgtm'
@@ -53,7 +54,11 @@ dependencies {
     testAndDevelopmentOnly 'io.arconia:arconia-dev-services-phoenix'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-postgresql'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.springframework.boot:spring-boot-starter-data-jdbc-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-flyway-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-restclient-test"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
