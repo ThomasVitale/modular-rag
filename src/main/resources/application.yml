@@ -10,7 +10,7 @@ spring:
               command: npx
               args:
                 - "-y"
-                - "tavily-mcp@0.2.0"
+                - "tavily-mcp@0.2.12"
               env:
                 TAVILY_API_KEY: ${TAVILY_SEARCH_API_KEY}
     ollama:
@@ -51,14 +51,7 @@ arconia:
         enabled: false
       phoenix:
         enabled: true
-      postgresql:
-        image-name: pgvector/pgvector:pg18
   observations:
     generative-ai:
       openinference:
         enabled: true
-  otel:
-    logs:
-      enabled: false
-    metrics:
-      enabled: false

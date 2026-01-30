@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.1'
+	id 'org.springframework.boot' version '4.0.2'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.vaadin' version '25.0.2'
+	id 'com.vaadin' version '25.0.3'
 }
 
 group = 'com.thomasvitale'
@@ -19,17 +19,18 @@ repositories {
 }
 
 ext {
-	set('arconiaVersion', "0.21.0")
-	set('springAiVersion', "2.0.0-M1")
-	set('vaadinVersion', "25.0.2")
+	set('arconiaVersion', "0.22.0")
+	set('springAiVersion', "2.0.0-M2")
+	set('vaadinVersion', "25.0.3")
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
-	implementation 'in.virit:viritin:3.1.0'
+	implementation 'in.virit:viritin:3.1.2'
 
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'

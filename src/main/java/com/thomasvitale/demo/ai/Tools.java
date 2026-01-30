@@ -24,13 +24,13 @@ public class Tools {
         this.vectorStore = vectorStore;
     }
 
-    @Tool(description = "Retrieve information about stories taking place in the world of Iorek and Pingu")
+    @Tool(description = "Retrieve information about stories and adventures taking place in the world of Iorek, Pingu, Lucio, and Balosso")
     @Nullable
-    String iorekPinguRetriever(String query) {
+    String storyRetriever(String query) {
         return chatClientBuilder.clone().build().prompt()
                 .advisors(RetrievalAugmentationAdvisor.builder()
                         .documentRetriever(VectorStoreDocumentRetriever.builder()
-                                .filterExpression(new FilterExpressionBuilder().eq("location", "North Pole").build())
+                                .filterExpression(new FilterExpressionBuilder().eq("topic", "story").build())
                                 .vectorStore(vectorStore)
                                 .similarityThreshold(0.5)
                                 .topK(3)
@@ -41,13 +41,13 @@ public class Tools {
                 .content();
     }
 
-    @Tool(description = "Retrieve information about stories taking place in the world of Lucio and Balosso")
+    @Tool(description = "Retrieve information about RAG and GenAI applications with Java, Arconia, Docling, and Spring AI")
     @Nullable
-    String lucioBalossoRetriever(String query) {
+    String arconiaRetriever(String query) {
         return chatClientBuilder.clone().build().prompt()
                 .advisors(RetrievalAugmentationAdvisor.builder()
                         .documentRetriever(VectorStoreDocumentRetriever.builder()
-                                .filterExpression(new FilterExpressionBuilder().eq("location", "Italy").build())
+                                .filterExpression(new FilterExpressionBuilder().eq("topic", "arconia").build())
                                 .vectorStore(vectorStore)
                                 .similarityThreshold(0.5)
                                 .topK(3)

@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Component
 class DoclingIngestionPipeline {
@@ -40,32 +40,34 @@ class DoclingIngestionPipeline {
     void run() {
         vectorStore.delete(new FilterExpressionBuilder().eq("demo", "true").build());
 
-        List<Document> documents = new ArrayList<>();
-
         logger.info("Parsing and chunking files as Documents with Docling");
-        var documents1 = DoclingDocumentReader.builder()
-                .doclingServeApi(doclingServeApi)
-                .files(file1)
-                .metadata(Map.of(
-                        "demo", "true",
-                        "location", "North Pole"
-                ))
-                .build()
-                .get();
-        documents.addAll(documents1);
 
-        var documents2 = DoclingDocumentReader.builder()
+        List<Document> storyDocuments = DoclingDocumentReader.builder()
                 .doclingServeApi(doclingServeApi)
-                .files(file2)
+                .files(file1, file2)
                 .metadata(Map.of(
                         "demo", "true",
-                        "location", "Italy"
+                        "topic", "story"
                 ))
                 .build()
                 .get();
-        documents.addAll(documents2);
+
+        List<Document> arconiaDocuments = DoclingDocumentReader.builder()
+                .doclingServeApi(doclingServeApi)
+                .urls(
+                        "https://www.thomasvitale.com/rag-docling-java-spring-ai/",
+                        "https://www.thomasvitale.com/ai-document-processing-docling-java-arconia-spring-boot/"
+                )
+                .metadata(Map.of(
+                        "demo", "true",
+                        "topic", "arconia"
+                ))
+                .build()
+                .get();
 
         logger.info("Creating and storing Embeddings from Documents");
+
+        List<Document> documents = Stream.concat(storyDocuments.stream(), arconiaDocuments.stream()).toList();
         vectorStore.add(documents);
     }
 

@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @StyleSheet("styles.css")
 public class ModularRagApplication implements AppShellConfigurator {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		SpringApplication.run(ModularRagApplication.class, args);
 	}
 
