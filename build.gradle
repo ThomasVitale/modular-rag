@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.2'
+	id 'org.springframework.boot' version '4.0.3'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.vaadin' version '25.0.3'
 }
@@ -55,7 +55,8 @@ dependencies {
     testAndDevelopmentOnly 'io.arconia:arconia-dev-services-phoenix'
 	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-postgresql'
 
-	testImplementation "org.springframework.boot:spring-boot-starter-data-jdbc-test"
+	testImplementation "org.springframework.boot:spring-boot-starter-actuator-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-data-jdbc-test"
     testImplementation "org.springframework.boot:spring-boot-starter-flyway-test"
     testImplementation "org.springframework.boot:spring-boot-starter-restclient-test"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

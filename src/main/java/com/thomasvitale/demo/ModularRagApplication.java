@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @PWA(name = "Modular RAG", shortName = "Modular RAG")
 @Push
-@StyleSheet(Aura.STYLESHEET)
+@StyleSheet(Lumo.STYLESHEET)
 @StyleSheet(Lumo.UTILITY_STYLESHEET)
 @StyleSheet("styles.css")
 public class ModularRagApplication implements AppShellConfigurator {
