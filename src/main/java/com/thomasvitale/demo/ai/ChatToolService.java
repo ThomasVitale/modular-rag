@@ -23,7 +23,7 @@ public class ChatToolService implements AiService {
     public ChatToolService(ChatClient.Builder chatClientBuilder, SyncMcpToolCallbackProvider mcpToolCallbackProvider, VectorStore vectorStore) {
         this.chatClient = chatClientBuilder
                 .defaultTools(new Tools(chatClientBuilder.clone(), vectorStore))
-                .defaultToolCallbacks(mcpToolCallbackProvider)
+                .defaultTools(mcpToolCallbackProvider)
                 .build();
     }
 

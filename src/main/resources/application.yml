@@ -17,10 +17,8 @@ spring:
       init:
         pull-model-strategy: when_missing
       chat:
-        options:
           model: ministral-3:8b
       embedding:
-        options:
           model: granite-embedding:278m
     vectorstore:
       pgvector:
@@ -50,8 +48,4 @@ arconia:
       lgtm:
         enabled: false
       phoenix:
-        enabled: true
-  observations:
-    generative-ai:
-      openinference:
         enabled: true
