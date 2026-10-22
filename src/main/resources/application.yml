@@ -10,7 +10,7 @@ spring:
               command: npx
               args:
                 - "-y"
-                - "tavily-mcp@0.2.12"
+                - "tavily-mcp@0.2.22"
               env:
                 TAVILY_API_KEY: ${TAVILY_SEARCH_API_KEY}
     ollama:
@@ -24,10 +24,6 @@ spring:
       pgvector:
         dimensions: 768
         index-type: hnsw
-    chat:
-      observations:
-        log-prompt: true
-        log-completion: true
   threads:
     virtual:
       enabled: true
@@ -36,16 +32,15 @@ logging:
   level:
     org.springframework.ai.rag: debug
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
 arconia:
   dev:
     services:
       lgtm:
-        enabled: false
-      phoenix:
         enabled: true
+      phoenix:
+        enabled: false
+  observations:
+    conventions:
+      openinference:
+        ai:
+          enabled: false

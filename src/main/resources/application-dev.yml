@@ -1,2 +1,8 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 vaadin:
   launch-browser: true
